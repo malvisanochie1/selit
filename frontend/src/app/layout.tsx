@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import Sidebar from "@/components/Sidebar";
+// import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,8 +17,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className="bg-[#f5f2fa] dark:bg-slate-950">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Sidebar />
-          <main className="min-h-screen pl-20 transition-all duration-300">
+          {/* <div className=" hidden sm:flex ">
+            <Sidebar />
+          </div> */}
+          <main className="min-h-screen transition-all duration-300">
             {children}
           </main>
         </ThemeProvider>

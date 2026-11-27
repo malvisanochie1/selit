@@ -7,7 +7,9 @@
     "resolveJsonModule": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@selit/shared": ["../shared/src/index.ts"]
+      "@selit/shared": ["../shared/src/index.ts"],
+      "zod": ["./node_modules/zod"],
+      "@supabase/supabase-js": ["./node_modules/@supabase/supabase-js"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]

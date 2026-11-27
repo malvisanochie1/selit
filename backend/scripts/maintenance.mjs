@@ -11,7 +11,13 @@ if (!url || !key) {
   process.exit(0);
 }
 
-const headers = { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' };
+// New Supabase secret keys (sb_secret_…) go in the apikey header only; older
+// JWT keys also need the Authorization header.
+const headers = {
+  apikey: key,
+  ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }),
+  'Content-Type': 'application/json',
+};
 
 const response = await fetch(`${url}/rest/v1/rpc/run_maintenance`, {
   method: 'POST',

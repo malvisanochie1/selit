@@ -23,7 +23,6 @@ jobs:
         run: |
           if [ -z "$SUPABASE_URL" ]; then echo "Supabase keys are not set yet, skipping."; exit 0; fi
           curl -fsS -X POST "$SUPABASE_URL/rest/v1/rpc/ping" \
-            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
-            -H "Content-Type: application/json" -d '{}'
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Content-Type: application/json" -d '{}'
       - name: Clear old records and photos
         run: node backend/scripts/maintenance.mjs

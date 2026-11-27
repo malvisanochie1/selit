@@ -1,0 +1,19 @@
+{
+  "name": "selit",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "shared",
+    "web",
+    "mobile"
+  ],
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

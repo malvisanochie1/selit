@@ -1,0 +1,13 @@
+{
+  "name": "@selit/backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/database.test.mjs",
+    "maintenance": "node scripts/maintenance.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.3.16"
+  }
+}

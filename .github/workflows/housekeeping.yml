@@ -1,0 +1,29 @@
+name: Housekeeping
+
+# Runs every day. Keeps the free Supabase project awake and clears out old
+# records and photos so the free storage limits are never reached.
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Keep the project awake
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then echo "Supabase keys are not set yet, skipping."; exit 0; fi
+          curl -fsS -X POST "$SUPABASE_URL/rest/v1/rpc/ping" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" -d '{}'
+      - name: Clear old records and photos
+        run: node backend/scripts/maintenance.mjs

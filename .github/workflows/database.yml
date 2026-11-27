@@ -20,10 +20,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --no-save @electric-sql/pglite@0.3.16
-        working-directory: backend
-      - run: npm test
-        working-directory: backend
+          cache: npm
+      - run: npm ci
+      - run: npm test --workspace backend
 
   deploy:
     needs: test

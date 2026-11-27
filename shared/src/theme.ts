@@ -1,0 +1,50 @@
+/** The Selit palette. Web reads it through Tailwind tokens, mobile through NativeWind. */
+export const COLORS = {
+  ink: {
+    950: '#08122a',
+    900: '#0d1b34',
+    800: '#1b2a45',
+    700: '#2d3d5a',
+    600: '#45536d',
+    500: '#5d6a80',
+    400: '#8a94a6',
+    300: '#b6bdca',
+    200: '#d9dee6',
+    100: '#eceff3',
+  },
+  canvas: '#f6f7f2',
+  surface: '#ffffff',
+  line: '#e5e8e0',
+  lineStrong: '#d3d8cd',
+  brand: {
+    50: '#edf8f0',
+    100: '#d4f0dc',
+    200: '#a8e0b8',
+    300: '#72cc8b',
+    400: '#3fb962',
+    500: '#1fa34a',
+    600: '#168a3c',
+    700: '#126f32',
+    800: '#0f5828',
+    900: '#0b4420',
+  },
+  glow: '#8ee05b',
+  amber: {
+    50: '#fff8e3',
+    100: '#feedbd',
+    300: '#fbd36a',
+    400: '#f8c440',
+    500: '#f5b21b',
+    600: '#d8950b',
+    700: '#a16b05',
+  },
+  danger: { 50: '#fdefec', 100: '#fad8d1', 500: '#d6452d', 600: '#b93520', 700: '#94291a' },
+  info: { 50: '#eef4ff', 500: '#2f6fdb', 700: '#1f4fa3' },
+} as const;
+
+/** Calm, decelerating motion used everywhere. */
+export const MOTION = {
+  easeOut: [0.22, 1, 0.36, 1] as const,
+  appearMs: 700,
+  pressScale: 0.96,
+} as const;

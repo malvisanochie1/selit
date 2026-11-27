@@ -13,7 +13,11 @@ if (!url || !key) {
 
 const headers = { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' };
 
-const response = await fetch(`${url}/rest/v1/rpc/run_maintenance`, { method: 'POST', headers, body: '{}' });
+const response = await fetch(`${url}/rest/v1/rpc/run_maintenance`, {
+  method: 'POST',
+  headers,
+  body: '{}',
+});
 if (!response.ok) {
   throw new Error(`Maintenance failed: ${response.status} ${await response.text()}`);
 }

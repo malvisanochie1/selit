@@ -38,7 +38,7 @@ create table public.categories (
 insert into public.categories (slug, name, sort_order) values
   ('hostel-items', 'Hostel items', 1),
   ('furniture', 'Furniture', 2),
-  ('kitchen', 'Kitchen', 3),
+  ('kitchen-items', 'Kitchen', 3),
   ('electronics', 'Electronics', 4),
   ('phones', 'Phones & gadgets', 5),
   ('textbooks', 'Textbooks', 6),

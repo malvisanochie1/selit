@@ -152,7 +152,8 @@ as $$
   end;
 $$;
 
--- Marks a seller's item-check code as used, returning its id when it's valid.
+-- Marks a seller's item-check code as used once its photo is uploaded,
+-- returning the code's id when it's valid.
 create function private.consume_listing_check(p_check_id uuid, p_seller uuid)
 returns uuid
 language plpgsql
@@ -160,19 +161,23 @@ security definer
 set search_path = ''
 as $$
 declare
-  v_photo text := p_seller::text || '/' || p_check_id::text || '.webp';
+  v_photo text;
 begin
   if p_check_id is null then
     return null;
   end if;
 
+  select name into v_photo from storage.objects
+  where bucket_id = 'listing-checks' and name like p_seller::text || '/' || p_check_id::text || '.%'
+  limit 1;
+
+  if v_photo is null then
+    return null;
+  end if;
+
   update public.listing_checks
   set used_at = now(), photo_path = v_photo
-  where id = p_check_id
-    and seller_id = p_seller
-    and used_at is null
-    and expires_at > now()
-    and exists (select 1 from storage.objects where bucket_id = 'listing-checks' and name = v_photo);
+  where id = p_check_id and seller_id = p_seller and used_at is null and expires_at > now();
 
   return case when found then p_check_id else null end;
 end;

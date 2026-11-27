@@ -44,5 +44,5 @@ jobs:
             echo "Supabase secrets are not set yet, skipping deploy."
             exit 0
           fi
-          supabase link --project-ref "$SUPABASE_PROJECT_REF" --password "$SUPABASE_DB_PASSWORD"
-          supabase db push --password "$SUPABASE_DB_PASSWORD"
+          supabase link --project-ref "$SUPABASE_PROJECT_REF"
+          supabase db push --linked --include-all

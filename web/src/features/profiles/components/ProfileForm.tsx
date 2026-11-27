@@ -1,6 +1,12 @@
 'use client';
 
-import { fieldErrorsOf, MAX_PHOTO_BYTES, messageOf, profileSchema } from '@selit/shared';
+import {
+  fieldErrorsOf,
+  MAX_PHOTO_BYTES,
+  messageOf,
+  profileSchema,
+  toLocalNumber,
+} from '@selit/shared';
 import { Camera, Phone } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -106,7 +112,7 @@ export function ProfileForm() {
             inputMode="tel"
             leadingIcon={<Phone />}
             placeholder="0803 123 4567"
-            defaultValue={user.whatsApp}
+            defaultValue={toLocalNumber(user.whatsApp)}
             hint="Shown only to signed-in students who open your listings."
             error={errors.whatsApp}
           />

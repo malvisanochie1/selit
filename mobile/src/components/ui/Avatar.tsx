@@ -26,7 +26,12 @@ export function Avatar({
       className={cn('items-center justify-center overflow-hidden bg-brand-100', className)}
     >
       {src ? (
-        <Image source={{ uri: src }} style={{ width: dimension, height: dimension }} contentFit="cover" transition={300} />
+        <Image
+          source={{ uri: src }}
+          style={{ width: dimension, height: dimension }}
+          contentFit="cover"
+          transition={300}
+        />
       ) : (
         <Text style={{ fontSize: dimension * 0.36 }} className="font-display-bold text-brand-800">
           {initialsOf(name) || 'S'}

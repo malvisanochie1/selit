@@ -16,7 +16,10 @@ export function useAppear(index = 0, enabled = true) {
   useEffect(() => {
     if (!enabled) return;
     const delay = Math.min(index, MAX_STAGGER_STEPS) * DURATION.stagger;
-    progress.value = withDelay(delay, withTiming(1, { duration: DURATION.appear, easing: EASE_OUT }));
+    progress.value = withDelay(
+      delay,
+      withTiming(1, { duration: DURATION.appear, easing: EASE_OUT }),
+    );
   }, [enabled, index, progress]);
 
   return useAnimatedStyle(() => ({

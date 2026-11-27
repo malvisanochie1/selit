@@ -21,5 +21,6 @@ export * from './validation/schemas';
 
 export * from './content/legal';
 export * from './content/safety';
+export * from './content/help';
 
 export * from './api';

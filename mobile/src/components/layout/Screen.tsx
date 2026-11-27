@@ -31,7 +31,10 @@ export function Screen({
   contentClassName,
 }: ScreenProps) {
   const column = (
-    <View style={{ width: '100%', maxWidth, alignSelf: 'center', paddingHorizontal: '5%' }} className={contentClassName}>
+    <View
+      style={{ width: '100%', maxWidth, alignSelf: 'center', paddingHorizontal: '5%' }}
+      className={contentClassName}
+    >
       {children}
     </View>
   );
@@ -39,14 +42,22 @@ export function Screen({
   return (
     <SafeAreaView edges={edges} className="flex-1 bg-canvas">
       {header}
-      <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView
+        className="flex-1"
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
         {scroll ? (
           <ScrollView
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{ paddingBottom: 120 }}
             refreshControl={
               onRefresh ? (
-                <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} tintColor={COLORS.brand[600]} colors={[COLORS.brand[600]]} />
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={onRefresh}
+                  tintColor={COLORS.brand[600]}
+                  colors={[COLORS.brand[600]]}
+                />
               ) : undefined
             }
           >

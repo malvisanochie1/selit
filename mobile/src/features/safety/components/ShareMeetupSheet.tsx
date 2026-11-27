@@ -20,7 +20,14 @@ type ShareMeetupSheetProps = {
 };
 
 /** Sends a friend who you're meeting, where and when, before you leave. */
-export function ShareMeetupSheet({ open, onClose, itemTitle, sellerName, spot, link }: ShareMeetupSheetProps) {
+export function ShareMeetupSheet({
+  open,
+  onClose,
+  itemTitle,
+  sellerName,
+  spot,
+  link,
+}: ShareMeetupSheetProps) {
   const [time, setTime] = useState('Today, 4pm');
   const [meetSpot, setMeetSpot] = useState(spot);
   const [copied, setCopied] = useState(false);
@@ -37,7 +44,13 @@ export function ShareMeetupSheet({ open, onClose, itemTitle, sellerName, spot, l
           <View className="flex-1">
             <Button
               variant="secondary"
-              icon={copied ? <Check size={18} color={COLORS.brand[600]} /> : <Copy size={18} color={COLORS.ink[900]} />}
+              icon={
+                copied ? (
+                  <Check size={18} color={COLORS.brand[600]} />
+                ) : (
+                  <Copy size={18} color={COLORS.ink[900]} />
+                )
+              }
               onPress={async () => {
                 await Clipboard.setStringAsync(message);
                 setCopied(true);
@@ -48,7 +61,10 @@ export function ShareMeetupSheet({ open, onClose, itemTitle, sellerName, spot, l
             </Button>
           </View>
           <View className="flex-1">
-            <Button icon={<Share2 size={18} color="#fff" />} onPress={() => void Share.share({ message })}>
+            <Button
+              icon={<Share2 size={18} color="#fff" />}
+              onPress={() => void Share.share({ message })}
+            >
               Share
             </Button>
           </View>

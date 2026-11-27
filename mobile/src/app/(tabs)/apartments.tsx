@@ -27,18 +27,27 @@ export default function ApartmentsScreen() {
   const [filters, setFilters] = useState<ApartmentFilters>({ sort: 'newest' });
   const [draft, setDraft] = useState('');
   const applied = useMemo(() => ({ ...filters, limit: 9 }), [filters]);
-  const update = (changes: Partial<ApartmentFilters>) => setFilters((current) => ({ ...current, ...changes }));
+  const update = (changes: Partial<ApartmentFilters>) =>
+    setFilters((current) => ({ ...current, ...changes }));
 
   const query = useInfiniteQuery({
     queryKey: ['apartments', 'browse', applied],
     queryFn: ({ pageParam }) => getApi().apartments.list({ ...applied, page: pageParam }),
     initialPageParam: 1,
-    getNextPageParam: (last) => (last.pagination.page < last.pagination.pages ? last.pagination.page + 1 : undefined),
+    getNextPageParam: (last) =>
+      last.pagination.page < last.pagination.pages ? last.pagination.page + 1 : undefined,
   });
   const items = query.data?.pages.flatMap((page) => page.items) ?? [];
 
   const header = (
-    <View style={{ width: '100%', maxWidth: MAX_CONTENT_WIDTH, alignSelf: 'center', paddingHorizontal: '5%' }}>
+    <View
+      style={{
+        width: '100%',
+        maxWidth: MAX_CONTENT_WIDTH,
+        alignSelf: 'center',
+        paddingHorizontal: '5%',
+      }}
+    >
       <PageTitle
         title="Apartments"
         description="Vacant rooms near your school, from ID-verified agents. Rent shown upfront."
@@ -52,19 +61,47 @@ export default function ApartmentsScreen() {
           onSubmitEditing={() => update({ search: draft.trim() || undefined })}
           leadingIcon={<Search size={18} color={COLORS.ink[400]} />}
         />
-        <SchoolPicker value={filters.school ?? ''} onChange={(school) => update({ school: school || undefined })} allowAll compact />
+        <SchoolPicker
+          value={filters.school ?? ''}
+          onChange={(school) => update({ school: school || undefined })}
+          allowAll
+          compact
+        />
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4" style={{ marginHorizontal: '-5.5%' }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="mt-4"
+        style={{ marginHorizontal: '-5.5%' }}
+      >
         <View className="flex-row gap-2 px-[5%]">
-          <Chip label="Any type" isActive={!filters.type} onPress={() => update({ type: undefined })} />
+          <Chip
+            label="Any type"
+            isActive={!filters.type}
+            onPress={() => update({ type: undefined })}
+          />
           {APARTMENT_TYPES.map((type) => (
-            <Chip key={type.value} label={type.label} isActive={filters.type === type.value} onPress={() => update({ type: type.value })} />
+            <Chip
+              key={type.value}
+              label={type.label}
+              isActive={filters.type === type.value}
+              onPress={() => update({ type: type.value })}
+            />
           ))}
         </View>
       </ScrollView>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-5 mt-2" style={{ marginHorizontal: '-5.5%' }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="mb-5 mt-2"
+        style={{ marginHorizontal: '-5.5%' }}
+      >
         <View className="flex-row gap-2 px-[5%]">
-          <Chip label="Any budget" isActive={!filters.priceMax} onPress={() => update({ priceMax: undefined })} />
+          <Chip
+            label="Any budget"
+            isActive={!filters.priceMax}
+            onPress={() => update({ priceMax: undefined })}
+          />
           {BUDGETS.map((budget) => (
             <Chip
               key={budget}
@@ -95,7 +132,13 @@ export default function ApartmentsScreen() {
         contentContainerStyle={{ paddingBottom: 140 }}
         columnWrapperStyle={
           columns > 1
-            ? { width: '100%', maxWidth: MAX_CONTENT_WIDTH, alignSelf: 'center', paddingHorizontal: '5%', gap: GAP }
+            ? {
+                width: '100%',
+                maxWidth: MAX_CONTENT_WIDTH,
+                alignSelf: 'center',
+                paddingHorizontal: '5%',
+                gap: GAP,
+              }
             : undefined
         }
         renderItem={({ item, index }) => (
@@ -103,7 +146,13 @@ export default function ApartmentsScreen() {
             style={
               columns > 1
                 ? { flex: 1 / columns, marginBottom: GAP }
-                : { width: '100%', maxWidth: MAX_CONTENT_WIDTH, alignSelf: 'center', paddingHorizontal: '5%', marginBottom: GAP }
+                : {
+                    width: '100%',
+                    maxWidth: MAX_CONTENT_WIDTH,
+                    alignSelf: 'center',
+                    paddingHorizontal: '5%',
+                    marginBottom: GAP,
+                  }
             }
           >
             <Appear index={index} enabled={index < 3}>
@@ -144,7 +193,9 @@ export default function ApartmentsScreen() {
           )
         }
         ListFooterComponent={
-          query.isFetchingNextPage ? <ActivityIndicator className="mt-4" color={COLORS.brand[600]} /> : undefined
+          query.isFetchingNextPage ? (
+            <ActivityIndicator className="mt-4" color={COLORS.brand[600]} />
+          ) : undefined
         }
       />
     </SafeAreaView>

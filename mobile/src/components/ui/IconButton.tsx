@@ -18,7 +18,13 @@ const TONES = {
 };
 
 /** A 44 px touch target holding one icon. */
-export function IconButton({ icon, onPress, accessibilityLabel, tone = 'surface', className }: IconButtonProps) {
+export function IconButton({
+  icon,
+  onPress,
+  accessibilityLabel,
+  tone = 'surface',
+  className,
+}: IconButtonProps) {
   return (
     <PressableScale
       onPress={onPress}

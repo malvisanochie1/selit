@@ -1,4 +1,11 @@
-import { CATEGORIES, CONDITIONS, messageOf, type Listing, type ListingFilters, type ListingSort } from '@selit/shared';
+import {
+  CATEGORIES,
+  CONDITIONS,
+  messageOf,
+  type Listing,
+  type ListingFilters,
+  type ListingSort,
+} from '@selit/shared';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { PackageSearch, Search, SlidersHorizontal } from 'lucide-react-native';
 import { useMemo, useState, type ReactNode } from 'react';
@@ -49,16 +56,30 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
     queryKey: ['listings', 'browse', applied],
     queryFn: ({ pageParam }) => getApi().listings.list({ ...applied, page: pageParam }),
     initialPageParam: 1,
-    getNextPageParam: (last) => (last.pagination.page < last.pagination.pages ? last.pagination.page + 1 : undefined),
+    getNextPageParam: (last) =>
+      last.pagination.page < last.pagination.pages ? last.pagination.page + 1 : undefined,
   });
 
   const items = query.data?.pages.flatMap((page) => page.items) ?? [];
   const total = query.data?.pages[0]?.pagination.total ?? 0;
-  const update = (changes: Partial<ListingFilters>) => setFilters((current) => ({ ...current, ...changes }));
-  const activeCount = [filters.school, filters.condition, filters.priceMax, !fixed.category && filters.category].filter(Boolean).length;
+  const update = (changes: Partial<ListingFilters>) =>
+    setFilters((current) => ({ ...current, ...changes }));
+  const activeCount = [
+    filters.school,
+    filters.condition,
+    filters.priceMax,
+    !fixed.category && filters.category,
+  ].filter(Boolean).length;
 
   const listHeader = (
-    <View style={{ width: '100%', maxWidth: MAX_CONTENT_WIDTH, alignSelf: 'center', paddingHorizontal: '5%' }}>
+    <View
+      style={{
+        width: '100%',
+        maxWidth: MAX_CONTENT_WIDTH,
+        alignSelf: 'center',
+        paddingHorizontal: '5%',
+      }}
+    >
       {header}
       <View className="flex-row items-center gap-2">
         <View className="flex-1">
@@ -86,9 +107,18 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
         </View>
       </View>
       {!fixed.category ? (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mt-4" style={{ marginHorizontal: '-5.5%' }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="mt-4"
+          style={{ marginHorizontal: '-5.5%' }}
+        >
           <View className="flex-row gap-2 px-[5%]">
-            <Chip label="All" isActive={!filters.category} onPress={() => update({ category: undefined })} />
+            <Chip
+              label="All"
+              isActive={!filters.category}
+              onPress={() => update({ category: undefined })}
+            />
             {CATEGORIES.map((category) => (
               <Chip
                 key={category.slug}
@@ -101,7 +131,9 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
         </ScrollView>
       ) : null}
       <Text className="mb-3 mt-5 text-sm text-ink-500">
-        {query.isPending ? 'Looking…' : `${total.toLocaleString('en-NG')} ${total === 1 ? 'item' : 'items'}`}
+        {query.isPending
+          ? 'Looking…'
+          : `${total.toLocaleString('en-NG')} ${total === 1 ? 'item' : 'items'}`}
       </Text>
       {query.isPending ? <ListingGridSkeleton count={columns * 2} /> : null}
     </View>
@@ -117,7 +149,13 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
         ListHeaderComponent={listHeader}
         initialNumToRender={8}
         contentContainerStyle={{ paddingBottom: 140 }}
-        columnWrapperStyle={{ width: '100%', maxWidth: MAX_CONTENT_WIDTH, alignSelf: 'center', paddingHorizontal: '5%', gap: GAP }}
+        columnWrapperStyle={{
+          width: '100%',
+          maxWidth: MAX_CONTENT_WIDTH,
+          alignSelf: 'center',
+          paddingHorizontal: '5%',
+          gap: GAP,
+        }}
         renderItem={({ item, index }) => (
           <View style={{ flex: 1 / columns, marginBottom: GAP }}>
             <Appear index={index} enabled={index < columns * 3}>
@@ -144,7 +182,9 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
                 icon={<PackageSearch size={26} color={COLORS.brand[700]} />}
                 title={query.isError ? "Couldn't load items" : 'Nothing here yet'}
                 description={
-                  query.isError ? messageOf(query.error) : 'Try another search or clear a filter to see more.'
+                  query.isError
+                    ? messageOf(query.error)
+                    : 'Try another search or clear a filter to see more.'
                 }
                 action={
                   query.isError ? (
@@ -158,7 +198,9 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
           )
         }
         ListFooterComponent={
-          query.isFetchingNextPage ? <ActivityIndicator className="mt-4" color={COLORS.brand[600]} /> : undefined
+          query.isFetchingNextPage ? (
+            <ActivityIndicator className="mt-4" color={COLORS.brand[600]} />
+          ) : undefined
         }
       />
 
@@ -186,19 +228,33 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
         }
       >
         <View className="gap-6">
-          <SchoolPicker label="School" value={filters.school ?? ''} onChange={(school) => update({ school: school || undefined })} allowAll />
+          <SchoolPicker
+            label="School"
+            value={filters.school ?? ''}
+            onChange={(school) => update({ school: school || undefined })}
+            allowAll
+          />
           <View className="gap-2">
             <Text className="font-body-semibold text-sm text-ink-800">Sort by</Text>
             <View className="flex-row flex-wrap gap-2">
               {SORTS.map((sort) => (
-                <Chip key={sort.value} label={sort.label} isActive={filters.sort === sort.value} onPress={() => update({ sort: sort.value })} />
+                <Chip
+                  key={sort.value}
+                  label={sort.label}
+                  isActive={filters.sort === sort.value}
+                  onPress={() => update({ sort: sort.value })}
+                />
               ))}
             </View>
           </View>
           <View className="gap-2">
             <Text className="font-body-semibold text-sm text-ink-800">Condition</Text>
             <View className="flex-row flex-wrap gap-2">
-              <Chip label="Any" isActive={!filters.condition} onPress={() => update({ condition: undefined })} />
+              <Chip
+                label="Any"
+                isActive={!filters.condition}
+                onPress={() => update({ condition: undefined })}
+              />
               {CONDITIONS.map((condition) => (
                 <Chip
                   key={condition.value}
@@ -212,7 +268,11 @@ export function ListingBrowser({ initial = {}, fixed = {}, header }: ListingBrow
           <View className="gap-2">
             <Text className="font-body-semibold text-sm text-ink-800">Budget</Text>
             <View className="flex-row flex-wrap gap-2">
-              <Chip label="Any" isActive={!filters.priceMax} onPress={() => update({ priceMax: undefined })} />
+              <Chip
+                label="Any"
+                isActive={!filters.priceMax}
+                onPress={() => update({ priceMax: undefined })}
+              />
               {BUDGETS.map((budget) => (
                 <Chip
                   key={budget}

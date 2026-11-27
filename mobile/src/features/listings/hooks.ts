@@ -16,7 +16,8 @@ export function useListings(filters: ListingFilters, enabled = true) {
     queryFn: async () => {
       const result = await getApi().listings.list(filters);
       // Seed detail caches so opening an item is instant.
-      for (const listing of result.items) queryClient.setQueryData(listingKeys.detail(listing.id), listing);
+      for (const listing of result.items)
+        queryClient.setQueryData(listingKeys.detail(listing.id), listing);
       return result;
     },
     placeholderData: keepPreviousData,
@@ -25,7 +26,11 @@ export function useListings(filters: ListingFilters, enabled = true) {
 }
 
 export function useListing(id: string) {
-  return useQuery({ queryKey: listingKeys.detail(id), queryFn: () => getApi().listings.get(id), enabled: Boolean(id) });
+  return useQuery({
+    queryKey: listingKeys.detail(id),
+    queryFn: () => getApi().listings.get(id),
+    enabled: Boolean(id),
+  });
 }
 
 export function useCreateListing() {
@@ -39,7 +44,8 @@ export function useCreateListing() {
 export function useUpdateListing() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, update }: { id: string; update: ListingUpdate }) => getApi().listings.update(id, update),
+    mutationFn: ({ id, update }: { id: string; update: ListingUpdate }) =>
+      getApi().listings.update(id, update),
     onSuccess: (listing: Listing) => {
       queryClient.setQueryData(listingKeys.detail(listing.id), listing);
       void queryClient.invalidateQueries({ queryKey: ['listings', 'list'] });

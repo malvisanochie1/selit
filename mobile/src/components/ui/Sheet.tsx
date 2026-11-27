@@ -36,16 +36,34 @@ export function Sheet({ open, onClose, title, description, children, footer }: S
   }, [open, progress]);
 
   const backdropStyle = useAnimatedStyle(() => ({ opacity: progress.value }));
-  const panelStyle = useAnimatedStyle(() => ({ transform: [{ translateY: (1 - progress.value) * 420 }] }));
+  const panelStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: (1 - progress.value) * 420 }],
+  }));
 
   return (
-    <Modal visible={isMounted} transparent statusBarTranslucent animationType="none" onRequestClose={onClose}>
+    <Modal
+      visible={isMounted}
+      transparent
+      statusBarTranslucent
+      animationType="none"
+      onRequestClose={onClose}
+    >
       <Animated.View style={[{ flex: 1, backgroundColor: 'rgba(8,18,42,0.45)' }, backdropStyle]}>
         <Pressable accessibilityLabel="Close" style={{ flex: 1 }} onPress={onClose} />
       </Animated.View>
-      <Animated.View style={[{ position: 'absolute', left: 0, right: 0, bottom: 0, alignItems: 'center' }, panelStyle]}>
+      <Animated.View
+        style={[
+          { position: 'absolute', left: 0, right: 0, bottom: 0, alignItems: 'center' },
+          panelStyle,
+        ]}
+      >
         <View
-          style={{ width: '100%', maxWidth: 620, maxHeight: '88%', paddingBottom: insets.bottom + 16 }}
+          style={{
+            width: '100%',
+            maxWidth: 620,
+            maxHeight: '88%',
+            paddingBottom: insets.bottom + 16,
+          }}
           className="rounded-t-[32px] bg-surface"
         >
           <View className="items-center pt-3">
@@ -54,11 +72,21 @@ export function Sheet({ open, onClose, title, description, children, footer }: S
           <View className="flex-row items-start gap-3 px-6 pb-2 pt-4">
             <View className="flex-1">
               <Heading className="text-xl">{title}</Heading>
-              {description ? <Text className="mt-1 text-sm text-ink-500">{description}</Text> : null}
+              {description ? (
+                <Text className="mt-1 text-sm text-ink-500">{description}</Text>
+              ) : null}
             </View>
-            <IconButton accessibilityLabel="Close" tone="plain" icon={<X size={20} color={COLORS.ink[500]} />} onPress={onClose} />
+            <IconButton
+              accessibilityLabel="Close"
+              tone="plain"
+              icon={<X size={20} color={COLORS.ink[500]} />}
+              onPress={onClose}
+            />
           </View>
-          <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 8 }}>
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 8 }}
+          >
             {children}
           </ScrollView>
           {footer ? <View className="flex-row gap-3 px-6 pt-3">{footer}</View> : null}

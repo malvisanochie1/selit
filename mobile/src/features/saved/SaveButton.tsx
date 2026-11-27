@@ -5,7 +5,13 @@ import { COLORS } from '@/theme';
 
 import { useIsSaved, useSavedStore } from './saved-store';
 
-export function SaveButton({ listingId, tone = 'glass' }: { listingId: string; tone?: 'glass' | 'surface' }) {
+export function SaveButton({
+  listingId,
+  tone = 'glass',
+}: {
+  listingId: string;
+  tone?: 'glass' | 'surface';
+}) {
   const isSaved = useIsSaved(listingId);
   const toggle = useSavedStore((state) => state.toggle);
   return (

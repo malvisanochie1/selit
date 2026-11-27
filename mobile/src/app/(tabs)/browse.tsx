@@ -15,7 +15,9 @@ export default function BrowseScreen() {
           school: params.school || undefined,
           category: params.category || undefined,
         }}
-        header={<PageTitle title="Browse" description="Used items from students near your campus." />}
+        header={
+          <PageTitle title="Browse" description="Used items from students near your campus." />
+        }
       />
     </SafeAreaView>
   );

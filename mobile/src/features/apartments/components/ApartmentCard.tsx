@@ -1,4 +1,10 @@
-import { apartmentTypeLabel, daysSince, findSchoolByName, formatNaira, type Apartment } from '@selit/shared';
+import {
+  apartmentTypeLabel,
+  daysSince,
+  findSchoolByName,
+  formatNaira,
+  type Apartment,
+} from '@selit/shared';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { BadgeCheck, Building2, Clock, MapPin } from 'lucide-react-native';
@@ -24,7 +30,12 @@ function ApartmentCardBase({ apartment }: { apartment: Apartment }) {
     >
       <View className="aspect-[4/3] w-full overflow-hidden bg-canvas">
         {apartment.images[0] ? (
-          <Image source={{ uri: apartment.images[0] }} style={{ width: '100%', height: '100%' }} contentFit="cover" transition={400} />
+          <Image
+            source={{ uri: apartment.images[0] }}
+            style={{ width: '100%', height: '100%' }}
+            contentFit="cover"
+            transition={400}
+          />
         ) : (
           <View className="flex-1 items-center justify-center bg-brand-50">
             <Building2 size={32} color={COLORS.brand[600]} strokeWidth={1.5} />
@@ -45,7 +56,9 @@ function ApartmentCardBase({ apartment }: { apartment: Apartment }) {
       </View>
       <View className="gap-1.5 p-4">
         <View className="flex-row items-baseline gap-1">
-          <Text className="font-display-bold text-xl text-ink-900">{formatNaira(apartment.rentPerYear)}</Text>
+          <Text className="font-display-bold text-xl text-ink-900">
+            {formatNaira(apartment.rentPerYear)}
+          </Text>
           <Text className="text-sm text-ink-500">/ year</Text>
         </View>
         <Text numberOfLines={1} className="font-body-semibold text-ink-800">
@@ -59,7 +72,9 @@ function ApartmentCardBase({ apartment }: { apartment: Apartment }) {
           </Text>
         </View>
         <View className="mt-1 flex-row items-center justify-between">
-          <Text className="font-body-medium text-xs text-ink-600">{apartmentTypeLabel(apartment.type)}</Text>
+          <Text className="font-body-medium text-xs text-ink-600">
+            {apartmentTypeLabel(apartment.type)}
+          </Text>
           <View className="flex-row items-center gap-1">
             <Clock size={12} color={COLORS.ink[400]} />
             <Text className="text-xs text-ink-500">

@@ -16,7 +16,9 @@ export const useSessionStore = create<SessionState>((set) => ({
   status: 'loading',
   setUser: (user) => set({ user, status: user ? 'signed-in' : 'signed-out' }),
   refresh: async () => {
-    const user = await getApi().auth.getSessionUser().catch(() => null);
+    const user = await getApi()
+      .auth.getSessionUser()
+      .catch(() => null);
     set({ user, status: user ? 'signed-in' : 'signed-out' });
   },
 }));

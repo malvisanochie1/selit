@@ -97,6 +97,8 @@ export function AppLock() {
             <TextField
               placeholder="Your password"
               secureTextEntry
+              autoCapitalize="none"
+              autoCorrect={false}
               value={password}
               onChangeText={setPassword}
               error={error}
@@ -112,7 +114,12 @@ export function AppLock() {
                 ) : undefined
               }
             />
-            <Button size="lg" onPress={unlockWithPassword} isLoading={isChecking} disabled={!password}>
+            <Button
+              size="lg"
+              onPress={unlockWithPassword}
+              isLoading={isChecking}
+              disabled={!password}
+            >
               Unlock
             </Button>
             <Button

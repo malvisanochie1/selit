@@ -8,7 +8,17 @@ import {
   messageOf,
 } from '@selit/shared';
 import { router, useLocalSearchParams } from 'expo-router';
-import { BadgeCheck, ChevronRight, Eye, Flag, MapPin, PackageX, Pencil, Share2, Tag } from 'lucide-react-native';
+import {
+  BadgeCheck,
+  ChevronRight,
+  Eye,
+  Flag,
+  MapPin,
+  PackageX,
+  Pencil,
+  Share2,
+  Tag,
+} from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import { Share, View } from 'react-native';
 
@@ -43,7 +53,10 @@ export default function ListingScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { user, isSignedIn } = useSession();
   const { data: listing, isPending, isError, error, refetch, isRefetching } = useListing(id);
-  const similar = useListings({ category: listing?.category, limit: 6 }, Boolean(listing?.category));
+  const similar = useListings(
+    { category: listing?.category, limit: 6 },
+    Boolean(listing?.category),
+  );
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isMeetupOpen, setIsMeetupOpen] = useState(false);
 
@@ -61,7 +74,11 @@ export default function ListingScreen() {
             <IconButton
               accessibilityLabel="Share"
               icon={<Share2 size={18} color={COLORS.ink[900]} />}
-              onPress={() => void Share.share({ message: `${listing.title} · ${formatNaira(listing.price)}\n${link}` })}
+              onPress={() =>
+                void Share.share({
+                  message: `${listing.title} · ${formatNaira(listing.price)}\n${link}`,
+                })
+              }
             />
             <SaveButton listingId={listing.id} tone="surface" />
           </>
@@ -124,10 +141,14 @@ export default function ListingScreen() {
           {school?.shortName ? <Badge>{school.shortName}</Badge> : null}
           {listing.status === 'sold' ? <Badge tone="amber">Sold</Badge> : null}
           {listing.status === 'pending' ? <Badge tone="amber">In review</Badge> : null}
-          <Text className="self-center text-xs text-ink-400">{formatRelativeTime(listing.createdAt)}</Text>
+          <Text className="self-center text-xs text-ink-400">
+            {formatRelativeTime(listing.createdAt)}
+          </Text>
         </View>
         <Heading className="mt-3 text-3xl leading-9">{listing.title}</Heading>
-        <Text className="mt-2 font-display-bold text-4xl text-brand-700">{formatNaira(listing.price)}</Text>
+        <Text className="mt-2 font-display-bold text-4xl text-brand-700">
+          {formatNaira(listing.price)}
+        </Text>
       </Appear>
 
       {isOwn && listing.status === 'pending' ? (
@@ -163,7 +184,8 @@ export default function ListingScreen() {
               <View className="mt-1 flex-row items-center gap-1.5">
                 <RatingStars value={seller.averageRating} size={12} />
                 <Text className="text-xs text-ink-500">
-                  {seller.averageRating.toFixed(1)} · {seller.reviewCount} reviews · since {formatDate(seller.createdAt)}
+                  {seller.averageRating.toFixed(1)} · {seller.reviewCount} reviews · since{' '}
+                  {formatDate(seller.createdAt)}
                 </Text>
               </View>
             </View>
@@ -174,7 +196,12 @@ export default function ListingScreen() {
 
       <View className="mt-5">
         {isOwn ? (
-          <Button variant="secondary" size="lg" icon={<Pencil size={18} color={COLORS.ink[900]} />} onPress={() => router.push(`/sell/item?id=${listing.id}`)}>
+          <Button
+            variant="secondary"
+            size="lg"
+            icon={<Pencil size={18} color={COLORS.ink[900]} />}
+            onPress={() => router.push(`/sell/item?id=${listing.id}`)}
+          >
             Edit listing
           </Button>
         ) : (
@@ -202,11 +229,19 @@ export default function ListingScreen() {
 
       {!isOwn ? (
         <View className="mt-5 gap-3">
-          <Button variant="secondary" icon={<Share2 size={18} color={COLORS.ink[900]} />} onPress={() => setIsMeetupOpen(true)}>
+          <Button
+            variant="secondary"
+            icon={<Share2 size={18} color={COLORS.ink[900]} />}
+            onPress={() => setIsMeetupOpen(true)}
+          >
             Share my meet-up with a friend
           </Button>
           <SafetyTips />
-          <Button variant="ghost" icon={<Flag size={16} color={COLORS.danger[600]} />} onPress={() => setIsReportOpen(true)}>
+          <Button
+            variant="ghost"
+            icon={<Flag size={16} color={COLORS.danger[600]} />}
+            onPress={() => setIsReportOpen(true)}
+          >
             <Text className="font-body-semibold text-danger-600">Report this listing</Text>
           </Button>
         </View>
@@ -215,7 +250,10 @@ export default function ListingScreen() {
       {similar.data && similar.data.items.filter((item) => item.id !== listing.id).length ? (
         <View className="mt-10">
           <Heading className="mb-4 text-2xl">Similar items</Heading>
-          <ListingGrid listings={similar.data.items.filter((item) => item.id !== listing.id).slice(0, 4)} animate={false} />
+          <ListingGrid
+            listings={similar.data.items.filter((item) => item.id !== listing.id).slice(0, 4)}
+            animate={false}
+          />
         </View>
       ) : null}
 

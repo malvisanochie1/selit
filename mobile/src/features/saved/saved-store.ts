@@ -15,7 +15,9 @@ export const useSavedStore = create<SavedState>()(
       ids: [],
       toggle: (id) =>
         set((state) => ({
-          ids: state.ids.includes(id) ? state.ids.filter((saved) => saved !== id) : [id, ...state.ids].slice(0, 200),
+          ids: state.ids.includes(id)
+            ? state.ids.filter((saved) => saved !== id)
+            : [id, ...state.ids].slice(0, 200),
         })),
     }),
     { name: 'selit.saved', storage: persistedStorage },

@@ -28,7 +28,13 @@ export function Badge({
   className?: string;
 }) {
   return (
-    <View className={cn('flex-row items-center gap-1 self-start rounded-full px-2.5 py-1', TONES[tone].box, className)}>
+    <View
+      className={cn(
+        'flex-row items-center gap-1 self-start rounded-full px-2.5 py-1',
+        TONES[tone].box,
+        className,
+      )}
+    >
       {icon}
       <Text className={cn('font-body-semibold text-xs', TONES[tone].text)}>{children}</Text>
     </View>

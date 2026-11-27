@@ -8,7 +8,11 @@ const verificationKey = ['verification', 'me'] as const;
 
 export function useVerificationStatus() {
   const { user } = useSession();
-  const query = useQuery({ queryKey: verificationKey, queryFn: () => getApi().verification.mine(), enabled: Boolean(user) });
+  const query = useQuery({
+    queryKey: verificationKey,
+    queryFn: () => getApi().verification.mine(),
+    enabled: Boolean(user),
+  });
   return {
     status: query.data?.status ?? user?.verificationStatus ?? 'unverified',
     record: query.data,

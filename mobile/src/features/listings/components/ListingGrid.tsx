@@ -10,7 +10,13 @@ import { ListingCard } from './ListingCard';
 const GAP = 12;
 
 /** A responsive grid for short lists inside a scrolling screen. */
-export function ListingGrid({ listings, animate = true }: { listings: Listing[]; animate?: boolean }) {
+export function ListingGrid({
+  listings,
+  animate = true,
+}: {
+  listings: Listing[];
+  animate?: boolean;
+}) {
   const columns = useColumns();
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -GAP / 2 }}>

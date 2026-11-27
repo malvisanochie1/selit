@@ -13,7 +13,11 @@ type Size = 'sm' | 'md' | 'lg';
 const VARIANTS: Record<Variant, { box: string; text: string; spinner: string }> = {
   primary: { box: 'bg-brand-600', text: 'text-white', spinner: '#ffffff' },
   dark: { box: 'bg-ink-900', text: 'text-white', spinner: '#ffffff' },
-  secondary: { box: 'border border-line-strong bg-surface', text: 'text-ink-900', spinner: COLORS.ink[900] },
+  secondary: {
+    box: 'border border-line-strong bg-surface',
+    text: 'text-ink-900',
+    spinner: COLORS.ink[900],
+  },
   ghost: { box: 'bg-transparent', text: 'text-ink-700', spinner: COLORS.ink[700] },
   danger: { box: 'bg-danger-500', text: 'text-white', spinner: '#ffffff' },
 };
@@ -69,7 +73,11 @@ export function Button({
         className,
       )}
     >
-      {isLoading ? <ActivityIndicator color={styles.spinner} size="small" /> : icon ? <View>{icon}</View> : null}
+      {isLoading ? (
+        <ActivityIndicator color={styles.spinner} size="small" />
+      ) : icon ? (
+        <View>{icon}</View>
+      ) : null}
       {typeof children === 'string' ? (
         <Text className={cn('font-body-semibold', styles.text, SIZES[size].text)} numberOfLines={1}>
           {children}

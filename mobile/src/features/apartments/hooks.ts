@@ -15,7 +15,8 @@ export function useApartments(filters: ApartmentFilters, enabled = true) {
     queryKey: apartmentKeys.list(filters),
     queryFn: async () => {
       const result = await getApi().apartments.list(filters);
-      for (const apartment of result.items) queryClient.setQueryData(apartmentKeys.detail(apartment.id), apartment);
+      for (const apartment of result.items)
+        queryClient.setQueryData(apartmentKeys.detail(apartment.id), apartment);
       return result;
     },
     placeholderData: keepPreviousData,
@@ -24,7 +25,11 @@ export function useApartments(filters: ApartmentFilters, enabled = true) {
 }
 
 export function useApartment(id: string) {
-  return useQuery({ queryKey: apartmentKeys.detail(id), queryFn: () => getApi().apartments.get(id), enabled: Boolean(id) });
+  return useQuery({
+    queryKey: apartmentKeys.detail(id),
+    queryFn: () => getApi().apartments.get(id),
+    enabled: Boolean(id),
+  });
 }
 
 export function useCreateApartment() {

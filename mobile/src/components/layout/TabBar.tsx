@@ -31,7 +31,10 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
 
   useEffect(() => {
     const distance = Math.abs(state.index - lastIndex);
-    position.value = withTiming(state.index * slot, { duration: 520 + 80 * distance, easing: EASE_OUT });
+    position.value = withTiming(state.index * slot, {
+      duration: 520 + 80 * distance,
+      easing: EASE_OUT,
+    });
     lastIndex = state.index;
   }, [state.index, slot, position]);
 
@@ -42,12 +45,27 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
   return (
     <View
       pointerEvents="box-none"
-      style={{ position: 'absolute', left: 0, right: 0, bottom: Math.max(insets.bottom, 12), alignItems: 'center' }}
+      style={{
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: Math.max(insets.bottom, 12),
+        alignItems: 'center',
+      }}
     >
-      <View style={[{ width: '92%', maxWidth: 520 }, SHADOW.float]} className="rounded-[28px] bg-ink-900 p-1.5">
-        <View className="flex-row" onLayout={(event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)}>
+      <View
+        style={[{ width: '92%', maxWidth: 520 }, SHADOW.float]}
+        className="rounded-[28px] bg-ink-900 p-1.5"
+      >
+        <View
+          className="flex-row"
+          onLayout={(event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)}
+        >
           {width > 0 && showPill ? (
-            <Animated.View pointerEvents="none" style={[{ position: 'absolute', top: 0, bottom: 0, width: slot }, pillStyle]}>
+            <Animated.View
+              pointerEvents="none"
+              style={[{ position: 'absolute', top: 0, bottom: 0, width: slot }, pillStyle]}
+            >
               <View className="flex-1 rounded-[22px] bg-white/10" />
             </Animated.View>
           ) : null}
@@ -84,8 +102,17 @@ export function TabBar({ state, navigateToTab }: BottomTabBarProps) {
                 accessibilityLabel={tab.label}
                 className="h-14 flex-1 items-center justify-center gap-1"
               >
-                <Icon size={20} color={isFocused ? COLORS.glow : COLORS.ink[300]} strokeWidth={isFocused ? 2.4 : 2} />
-                <Text className={cn('font-body-semibold text-[11px]', isFocused ? 'text-white' : 'text-ink-300')}>
+                <Icon
+                  size={20}
+                  color={isFocused ? COLORS.glow : COLORS.ink[300]}
+                  strokeWidth={isFocused ? 2.4 : 2}
+                />
+                <Text
+                  className={cn(
+                    'font-body-semibold text-[11px]',
+                    isFocused ? 'text-white' : 'text-ink-300',
+                  )}
+                >
                   {tab.label}
                 </Text>
               </Pressable>

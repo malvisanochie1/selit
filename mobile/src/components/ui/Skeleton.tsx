@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { View, type DimensionValue } from 'react-native';
-import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { EASE_IN_OUT } from '@/theme';
 

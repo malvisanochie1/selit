@@ -31,7 +31,10 @@ export default function SellScreen() {
   const { isSignedIn } = useSession();
   return (
     <Screen>
-      <PageTitle title="What are you listing?" description="Listing is free. Buyers reach you on WhatsApp or by phone." />
+      <PageTitle
+        title="What are you listing?"
+        description="Listing is free. Buyers reach you on WhatsApp or by phone."
+      />
       {!isSignedIn ? (
         <Notice
           title="Sign in to list"
@@ -71,7 +74,8 @@ export default function SellScreen() {
       <View className="mt-6 flex-row items-start gap-3 rounded-3xl bg-brand-50 p-5">
         <ShieldCheck size={20} color={COLORS.brand[700]} />
         <Text className="flex-1 text-sm leading-5 text-brand-800">
-          New sellers and unusually cheap items get a quick check before going live. It keeps bait listings off Selit.
+          New sellers and unusually cheap items get a quick check before going live. It keeps bait
+          listings off Selit.
         </Text>
       </View>
     </Screen>

@@ -53,7 +53,9 @@ const SUPPORT: MenuItem[] = [
 function MenuGroup({ title, items }: { title: string; items: MenuItem[] }) {
   return (
     <View className="mt-6">
-      <Text className="mb-2 px-1 font-body-bold text-xs uppercase tracking-widest text-ink-400">{title}</Text>
+      <Text className="mb-2 px-1 font-body-bold text-xs uppercase tracking-widest text-ink-400">
+        {title}
+      </Text>
       <View style={SHADOW.card} className="overflow-hidden rounded-3xl bg-surface">
         {items.map((item, index) => (
           <PressableScale
@@ -61,7 +63,10 @@ function MenuGroup({ title, items }: { title: string; items: MenuItem[] }) {
             onPress={() => router.push(item.href)}
             accessibilityRole="link"
             scaleTo={0.98}
-            className={cn('flex-row items-center gap-3 px-4 py-4', index > 0 && 'border-t border-line')}
+            className={cn(
+              'flex-row items-center gap-3 px-4 py-4',
+              index > 0 && 'border-t border-line',
+            )}
           >
             <View className="size-9 items-center justify-center rounded-xl bg-canvas">
               <item.icon size={18} color={COLORS.ink[700]} />
@@ -97,7 +102,10 @@ export default function AccountScreen() {
             </Button>
           </View>
         </View>
-        <MenuGroup title="Explore" items={[{ href: '/saved', label: 'Saved items', icon: Heart }, ...SUPPORT]} />
+        <MenuGroup
+          title="Explore"
+          items={[{ href: '/saved', label: 'Saved items', icon: Heart }, ...SUPPORT]}
+        />
       </Screen>
     );
   }
@@ -106,7 +114,10 @@ export default function AccountScreen() {
   return (
     <Screen>
       <Appear>
-        <View style={SHADOW.card} className="mt-4 flex-row items-center gap-4 rounded-[28px] bg-surface p-5">
+        <View
+          style={SHADOW.card}
+          className="mt-4 flex-row items-center gap-4 rounded-[28px] bg-surface p-5"
+        >
           <Avatar name={user.fullName} src={user.profileImageUrl} size="lg" />
           <View className="flex-1">
             <Heading numberOfLines={1} className="text-xl">
@@ -121,7 +132,9 @@ export default function AccountScreen() {
                   Verified
                 </Badge>
               ) : (
-                <Badge tone="amber">{user.verificationStatus === 'pending' ? 'Verification in review' : 'Unverified'}</Badge>
+                <Badge tone="amber">
+                  {user.verificationStatus === 'pending' ? 'Verification in review' : 'Unverified'}
+                </Badge>
               )}
               {user.role === 'admin' ? <Badge tone="info">Admin</Badge> : null}
             </View>
@@ -138,14 +151,19 @@ export default function AccountScreen() {
           <ShieldCheck size={22} color={COLORS.glow} />
           <View className="flex-1">
             <Text className="font-body-semibold text-white">Get your verified badge</Text>
-            <Text className="text-xs text-ink-300">Buyers reply faster to verified sellers. Takes 2 minutes.</Text>
+            <Text className="text-xs text-ink-300">
+              Buyers reply faster to verified sellers. Takes 2 minutes.
+            </Text>
           </View>
           <ChevronRight size={18} color={COLORS.ink[300]} />
         </PressableScale>
       ) : null}
 
       {user.role === 'admin' ? (
-        <MenuGroup title="Admin" items={[{ href: '/admin', label: 'Admin dashboard', icon: ShieldCheck }]} />
+        <MenuGroup
+          title="Admin"
+          items={[{ href: '/admin', label: 'Admin dashboard', icon: ShieldCheck }]}
+        />
       ) : null}
       <MenuGroup title="Selling" items={SELLING} />
       <MenuGroup title="Account" items={ACCOUNT} />

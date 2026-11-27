@@ -22,7 +22,13 @@ type ReportSheetProps = {
   targetLabel: string;
 };
 
-export function ReportSheet({ open, onClose, targetType, targetId, targetLabel }: ReportSheetProps) {
+export function ReportSheet({
+  open,
+  onClose,
+  targetType,
+  targetId,
+  targetLabel,
+}: ReportSheetProps) {
   const { isSignedIn } = useSession();
   const [reason, setReason] = useState<ReportReason | ''>('');
   const [details, setDetails] = useState('');
@@ -61,7 +67,11 @@ export function ReportSheet({ open, onClose, targetType, targetId, targetLabel }
     <Sheet
       open={open}
       onClose={close}
-      title={state === 'sent' ? 'Thanks for telling us' : `Report ${targetType === 'user' ? 'this member' : `this ${targetType}`}`}
+      title={
+        state === 'sent'
+          ? 'Thanks for telling us'
+          : `Report ${targetType === 'user' ? 'this member' : `this ${targetType}`}`
+      }
       description={state === 'sent' ? undefined : targetLabel}
       footer={
         state === 'sent' ? (
@@ -104,7 +114,9 @@ export function ReportSheet({ open, onClose, targetType, targetId, targetLabel }
                   reason === option.value ? 'border-danger-500' : 'border-ink-300',
                 )}
               >
-                {reason === option.value ? <View className="size-2.5 rounded-full bg-danger-500" /> : null}
+                {reason === option.value ? (
+                  <View className="size-2.5 rounded-full bg-danger-500" />
+                ) : null}
               </View>
               <Text className="flex-1 text-ink-800">{option.label}</Text>
             </Pressable>
@@ -118,7 +130,11 @@ export function ReportSheet({ open, onClose, targetType, targetId, targetLabel }
             value={details}
             onChangeText={setDetails}
           />
-          {error ? <Notice tone="danger" className="mt-2">{error}</Notice> : null}
+          {error ? (
+            <Notice tone="danger" className="mt-2">
+              {error}
+            </Notice>
+          ) : null}
         </View>
       )}
     </Sheet>

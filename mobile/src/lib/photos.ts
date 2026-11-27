@@ -15,11 +15,15 @@ export async function toPhotoUpload(photo: PickedPhoto, maxEdge = MAX_EDGE): Pro
   const scale = Math.min(1, maxEdge / Math.max(photo.width || maxEdge, photo.height || maxEdge));
   const context = ImageManipulator.manipulate(photo.uri);
   if (scale < 1) {
-    context.resize({ width: Math.round(photo.width * scale), height: Math.round(photo.height * scale) });
+    context.resize({
+      width: Math.round(photo.width * scale),
+      height: Math.round(photo.height * scale),
+    });
   }
   const image = await context.renderAsync();
   // WebP keeps photos smallest; iOS saves JPEG, which every browser also shows.
-  const format = Platform.OS === 'android' || Platform.OS === 'web' ? SaveFormat.WEBP : SaveFormat.JPEG;
+  const format =
+    Platform.OS === 'android' || Platform.OS === 'web' ? SaveFormat.WEBP : SaveFormat.JPEG;
   const saved = await image.saveAsync({ compress: 0.78, format });
   const body = await (await fetch(saved.uri)).arrayBuffer();
   return {
@@ -43,7 +47,10 @@ async function ensurePermission(source: 'camera' | 'library') {
 }
 
 /** Opens the camera or the gallery and returns the chosen photos. */
-export async function pickPhotos(source: 'camera' | 'library', limit: number): Promise<PickedPhoto[]> {
+export async function pickPhotos(
+  source: 'camera' | 'library',
+  limit: number,
+): Promise<PickedPhoto[]> {
   if (Platform.OS !== 'web' && !(await ensurePermission(source))) return [];
   const options: ImagePicker.ImagePickerOptions = {
     mediaTypes: ['images'],
@@ -56,5 +63,7 @@ export async function pickPhotos(source: 'camera' | 'library', limit: number): P
       ? await ImagePicker.launchCameraAsync(options)
       : await ImagePicker.launchImageLibraryAsync(options);
   if (result.canceled) return [];
-  return result.assets.slice(0, limit).map((asset) => ({ uri: asset.uri, width: asset.width, height: asset.height }));
+  return result.assets
+    .slice(0, limit)
+    .map((asset) => ({ uri: asset.uri, width: asset.width, height: asset.height }));
 }

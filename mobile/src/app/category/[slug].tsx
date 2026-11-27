@@ -14,7 +14,12 @@ export default function CategoryScreen() {
       <ScreenHeader />
       <ListingBrowser
         fixed={{ category: category?.slug ?? slug }}
-        header={<PageTitle title={category?.name ?? 'Category'} description={category ? `${category.blurb}, from students near you.` : undefined} />}
+        header={
+          <PageTitle
+            title={category?.name ?? 'Category'}
+            description={category ? `${category.blurb}, from students near you.` : undefined}
+          />
+        }
       />
     </SafeAreaView>
   );

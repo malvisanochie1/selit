@@ -1,4 +1,10 @@
-import { conditionLabel, findSchoolByName, formatNaira, formatRelativeTime, type Listing } from '@selit/shared';
+import {
+  conditionLabel,
+  findSchoolByName,
+  formatNaira,
+  formatRelativeTime,
+  type Listing,
+} from '@selit/shared';
 import { router } from 'expo-router';
 import { BadgeCheck, MapPin } from 'lucide-react-native';
 import { memo } from 'react';
@@ -35,7 +41,10 @@ function ListingCardBase({ listing }: { listing: Listing }) {
       </View>
       <View className="gap-1 p-3">
         <Text className="font-display-bold text-lg text-ink-900">{formatNaira(listing.price)}</Text>
-        <Text numberOfLines={2} className="min-h-10 font-body-medium text-sm leading-5 text-ink-800">
+        <Text
+          numberOfLines={2}
+          className="min-h-10 font-body-medium text-sm leading-5 text-ink-800"
+        >
           {listing.title}
         </Text>
         <View className="mt-1 flex-row items-center gap-1">
@@ -43,7 +52,9 @@ function ListingCardBase({ listing }: { listing: Listing }) {
           <Text numberOfLines={1} className="flex-1 text-xs text-ink-500">
             {school?.shortName || listing.school} · {formatRelativeTime(listing.createdAt)}
           </Text>
-          {isVerified ? <BadgeCheck size={14} color={COLORS.brand[600]} accessibilityLabel="Verified seller" /> : null}
+          {isVerified ? (
+            <BadgeCheck size={14} color={COLORS.brand[600]} accessibilityLabel="Verified seller" />
+          ) : null}
         </View>
       </View>
     </PressableScale>

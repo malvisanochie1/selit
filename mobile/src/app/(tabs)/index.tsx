@@ -59,9 +59,21 @@ const STEPS = [
 ];
 
 const SAFETY = [
-  { icon: BadgeCheck, title: 'Verified identities', text: 'Sellers and agents confirm their ID with a live selfie.' },
-  { icon: MapPinned, title: 'Public meet-up spots', text: 'Sales happen at busy public places, never private addresses.' },
-  { icon: Flag, title: 'Report in two taps', text: 'Suspicious listing? Report it and our team acts fast.' },
+  {
+    icon: BadgeCheck,
+    title: 'Verified identities',
+    text: 'Sellers and agents confirm their ID with a live selfie.',
+  },
+  {
+    icon: MapPinned,
+    title: 'Public meet-up spots',
+    text: 'Sales happen at busy public places, never private addresses.',
+  },
+  {
+    icon: Flag,
+    title: 'Report in two taps',
+    text: 'Suspicious listing? Report it and our team acts fast.',
+  },
 ];
 
 const APARTMENT_POINTS = [
@@ -98,14 +110,17 @@ function Hero() {
     <Appear>
       <View className="mt-2 self-start flex-row items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5">
         <View className="size-2 rounded-full bg-brand-500" />
-        <Text className="font-body-semibold text-xs text-brand-800">Now live in Ogwashi-Uku, Delta State</Text>
+        <Text className="font-body-semibold text-xs text-brand-800">
+          Now live in Ogwashi-Uku, Delta State
+        </Text>
       </View>
       <Heading className="mt-5 text-[40px] leading-[44px]">
-        Buy, sell and find a room <Heading className="text-[40px] leading-[44px] text-brand-600">near your campus.</Heading>
+        Buy, sell and find a room{' '}
+        <Heading className="text-[40px] leading-[44px] text-brand-600">near your campus.</Heading>
       </Heading>
       <Text className="mt-4 text-base leading-6 text-ink-500">
-        Pick up a mattress from a graduating student, sell your old phone, or find a self-contain without walking
-        from agent to agent.
+        Pick up a mattress from a graduating student, sell your old phone, or find a self-contain
+        without walking from agent to agent.
       </Text>
       <View style={SHADOW.card} className="mt-6 gap-3 rounded-3xl bg-surface p-3">
         <TextField
@@ -129,7 +144,11 @@ function Categories() {
   return (
     <View className="mt-12">
       <SectionHeading eyebrow="Categories" title="What do you need?" />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: '-5.5%' }}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ marginHorizontal: '-5.5%' }}
+      >
         <View className="flex-row gap-3 px-[5%]">
           {CATEGORIES.map((category, index) => {
             const Icon = CATEGORY_ICONS[category.icon];
@@ -176,7 +195,11 @@ function FreshListings() {
           </Link>
         }
       />
-      {isPending ? <ListingGridSkeleton count={columns * 2} /> : <ListingGrid listings={data?.items ?? []} />}
+      {isPending ? (
+        <ListingGridSkeleton count={columns * 2} />
+      ) : (
+        <ListingGrid listings={data?.items ?? []} />
+      )}
     </View>
   );
 }
@@ -185,10 +208,18 @@ function ApartmentsTeaser() {
   const { data, isPending } = useApartments({ sort: 'newest', limit: 2 });
   return (
     <View className="mt-12 overflow-hidden rounded-[32px]">
-      <LinearGradient colors={[COLORS.ink[950], COLORS.ink[800]]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+      <LinearGradient
+        colors={[COLORS.ink[950], COLORS.ink[800]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
         <View className="p-6">
-          <Text className="mb-2 font-body-bold text-xs uppercase tracking-widest text-glow">Apartments</Text>
-          <Heading className="text-3xl leading-9 text-white">Find a room without the agent runaround.</Heading>
+          <Text className="mb-2 font-body-bold text-xs uppercase tracking-widest text-glow">
+            Apartments
+          </Text>
+          <Heading className="text-3xl leading-9 text-white">
+            Find a room without the agent runaround.
+          </Heading>
           <Text className="mt-3 leading-6 text-ink-300">
             Every vacant self-contain and flat near your school, with the rent upfront.
           </Text>
@@ -204,10 +235,17 @@ function ApartmentsTeaser() {
             {isPending ? (
               <Skeleton height={260} />
             ) : (
-              (data?.items ?? []).map((apartment) => <ApartmentCard key={apartment.id} apartment={apartment} />)
+              (data?.items ?? []).map((apartment) => (
+                <ApartmentCard key={apartment.id} apartment={apartment} />
+              ))
             )}
           </View>
-          <Button className="mt-6" size="lg" onPress={() => router.push('/apartments')} trailingIcon={<ArrowRight size={18} color="#fff" />}>
+          <Button
+            className="mt-6"
+            size="lg"
+            onPress={() => router.push('/apartments')}
+            trailingIcon={<ArrowRight size={18} color="#fff" />}
+          >
             Browse apartments
           </Button>
         </View>
@@ -222,7 +260,10 @@ function HowItWorks() {
       <SectionHeading eyebrow="How it works" title="Simple, local and safe" />
       <View className="gap-3">
         {STEPS.map((step, index) => (
-          <View key={step.title} className="flex-row gap-4 rounded-3xl border border-line bg-surface p-5">
+          <View
+            key={step.title}
+            className="flex-row gap-4 rounded-3xl border border-line bg-surface p-5"
+          >
             <View className="size-11 items-center justify-center rounded-2xl bg-brand-50">
               <step.icon size={20} color={COLORS.brand[700]} />
             </View>
@@ -241,7 +282,9 @@ function HowItWorks() {
 function SafetyBand() {
   return (
     <View className="mt-12 rounded-[32px] bg-brand-50 p-6">
-      <Text className="mb-2 font-body-bold text-xs uppercase tracking-widest text-brand-700">Safety first</Text>
+      <Text className="mb-2 font-body-bold text-xs uppercase tracking-widest text-brand-700">
+        Safety first
+      </Text>
       <Heading className="text-2xl">Built to keep scammers out</Heading>
       <View className="mt-5 gap-4">
         {SAFETY.map((item) => (
@@ -266,7 +309,9 @@ function SafetyBand() {
 function SellCta() {
   return (
     <View className="mt-12 overflow-hidden rounded-[32px] bg-brand-700 p-6">
-      <Heading className="text-3xl leading-9 text-white">Graduating? Turn your hostel things into cash.</Heading>
+      <Heading className="text-3xl leading-9 text-white">
+        Graduating? Turn your hostel things into cash.
+      </Heading>
       <Text className="mt-3 leading-6 text-brand-100">
         Listing is free and takes about two minutes. The next set of freshers is already looking.
       </Text>
@@ -276,7 +321,10 @@ function SellCta() {
           { icon: Tag, text: 'Set a fair price' },
           { icon: Users, text: 'Students reach out' },
         ].map((item) => (
-          <View key={item.text} className="flex-row items-center gap-1.5 rounded-full bg-white/10 px-3 py-2">
+          <View
+            key={item.text}
+            className="flex-row items-center gap-1.5 rounded-full bg-white/10 px-3 py-2"
+          >
             <item.icon size={14} color={COLORS.glow} />
             <Text className="font-body-medium text-xs text-white">{item.text}</Text>
           </View>

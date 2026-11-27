@@ -1,3 +1,4 @@
+import { SAFETY_PROTECTIONS, SAFETY_RULES } from '@selit/shared';
 import {
   BadgeCheck,
   Ban,
@@ -20,51 +21,14 @@ export const metadata: Metadata = {
   description: 'How to buy, sell and find a room safely on Selit.',
 };
 
-const RULES = [
-  {
-    icon: MapPinned,
-    title: 'Meet in public, in daylight',
-    text: 'Use busy places: school gates, campus security posts, banks or busy junctions. Never a private house, hotel or lonely road.',
-  },
-  {
-    icon: Ban,
-    title: 'Never go to a second location',
-    text: 'If a seller says the item is "just nearby" and asks you to follow them somewhere else, say no and leave. This is the most common trap.',
-  },
-  {
-    icon: Handshake,
-    title: 'Inspect first, pay last',
-    text: 'Check the item works before money changes hands. Never pay a deposit, transport fee or "holding fee" in advance.',
-  },
-  {
-    icon: Users,
-    title: 'Bring a friend, tell a friend',
-    text: 'Go with someone if you can. Tap “Share my meet-up” on any listing to send a friend who, where and when.',
-  },
-];
+const RULE_ICONS = [MapPinned, Ban, Handshake, Users];
+const PROTECTION_ICONS = [BadgeCheck, ShieldAlert, Building2, Flag];
 
-const PROTECTIONS = [
-  {
-    icon: BadgeCheck,
-    title: 'Verified identities',
-    text: 'Sellers and agents confirm their NIN with a live selfie that is matched to their ID photo.',
-  },
-  {
-    icon: ShieldAlert,
-    title: 'Too-good-to-be-true checks',
-    text: 'Listings priced far below normal are held for review before anyone sees them.',
-  },
-  {
-    icon: Building2,
-    title: 'Apartments stay fresh',
-    text: 'Agents must confirm a room is still free every two weeks, and students can flag rooms that are taken.',
-  },
-  {
-    icon: Flag,
-    title: 'Fast reporting',
-    text: 'Every listing and profile has a Report button. Our team reviews reports quickly and bans scammers.',
-  },
-];
+const RULES = SAFETY_RULES.map((rule, index) => ({ ...rule, icon: RULE_ICONS[index] }));
+const PROTECTIONS = SAFETY_PROTECTIONS.map((item, index) => ({
+  ...item,
+  icon: PROTECTION_ICONS[index],
+}));
 
 export default function SafetyPage() {
   return (

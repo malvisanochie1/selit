@@ -59,7 +59,10 @@ export function TextField({
             props.onBlur?.(event);
           }}
           style={{ minWidth: 0 }}
-          className={cn('flex-1 font-body text-base text-ink-900', multiline ? 'min-h-24' : 'h-full')}
+          className={cn(
+            'flex-1 font-body text-base text-ink-900',
+            multiline ? 'min-h-24' : 'h-full',
+          )}
         />
         {trailing ? <View className="shrink-0 flex-row items-center gap-1">{trailing}</View> : null}
       </View>

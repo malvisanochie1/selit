@@ -13,7 +13,8 @@ export function getApi(): SelitApi {
   instance ??= isSampleMode
     ? createSampleApi({
         get: (key) => AsyncStorage.getItem(key),
-        set: (key, value) => (value ? AsyncStorage.setItem(key, value) : AsyncStorage.removeItem(key)),
+        set: (key, value) =>
+          value ? AsyncStorage.setItem(key, value) : AsyncStorage.removeItem(key),
       })
     : createLiveApi(getSupabase(), {
         emailConfirmed: Linking.createURL('/sign-in'),

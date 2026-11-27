@@ -28,3 +28,9 @@ export function maskPhone(phone: string) {
   if (number.length < 7) return '•••• •••• •••';
   return `+${number.slice(0, 3)} ${number.slice(3, 6)} ••• ••${number.slice(-2)}`;
 }
+
+/** Shows a stored number the way Nigerians type it, e.g. 234803… → 0803…. */
+export function toLocalNumber(value: string) {
+  const number = toInternationalNumber(value);
+  return number.startsWith('234') && number.length === 13 ? `0${number.slice(3)}` : value;
+}

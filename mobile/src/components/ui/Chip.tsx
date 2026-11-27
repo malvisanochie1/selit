@@ -27,7 +27,9 @@ export function Chip({ label, isActive = false, onPress, icon, className }: Chip
       )}
     >
       {icon ? <View>{icon}</View> : null}
-      <Text className={cn('font-body-semibold text-sm', isActive ? 'text-white' : 'text-ink-700')}>{label}</Text>
+      <Text className={cn('font-body-semibold text-sm', isActive ? 'text-white' : 'text-ink-700')}>
+        {label}
+      </Text>
     </PressableScale>
   );
 }

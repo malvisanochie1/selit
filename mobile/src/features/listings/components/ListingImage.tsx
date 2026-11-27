@@ -26,8 +26,16 @@ export function ListingImage({
     const Icon = match ? CATEGORY_ICONS[match.icon] : CATEGORY_ICONS.Shapes;
     const tone = CATEGORY_TONES[match?.tone ?? 'brand'];
     return (
-      <View className={cn('absolute inset-0 items-center justify-center bg-brand-50/60', className)}>
-        <View className={cn('items-center justify-center', compact ? 'size-9 rounded-xl' : 'size-16 rounded-3xl', tone.box)}>
+      <View
+        className={cn('absolute inset-0 items-center justify-center bg-brand-50/60', className)}
+      >
+        <View
+          className={cn(
+            'items-center justify-center',
+            compact ? 'size-9 rounded-xl' : 'size-16 rounded-3xl',
+            tone.box,
+          )}
+        >
           <Icon size={compact ? 16 : 28} color={tone.color} strokeWidth={1.75} />
         </View>
       </View>

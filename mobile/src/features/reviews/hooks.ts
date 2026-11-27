@@ -23,23 +23,33 @@ function useRefreshReviews(sellerId: string) {
 
 export function useCreateReview(sellerId: string) {
   const refresh = useRefreshReviews(sellerId);
-  return useMutation({ mutationFn: (input: ReviewInput) => getApi().reviews.create(sellerId, input), onSuccess: refresh });
+  return useMutation({
+    mutationFn: (input: ReviewInput) => getApi().reviews.create(sellerId, input),
+    onSuccess: refresh,
+  });
 }
 
 export function useReplyToReview(sellerId: string) {
   const refresh = useRefreshReviews(sellerId);
   return useMutation({
-    mutationFn: ({ reviewId, reply }: { reviewId: string; reply: string }) => getApi().reviews.reply(reviewId, reply),
+    mutationFn: ({ reviewId, reply }: { reviewId: string; reply: string }) =>
+      getApi().reviews.reply(reviewId, reply),
     onSuccess: refresh,
   });
 }
 
 export function useToggleHelpful(sellerId: string) {
   const refresh = useRefreshReviews(sellerId);
-  return useMutation({ mutationFn: (reviewId: string) => getApi().reviews.toggleHelpful(reviewId), onSuccess: refresh });
+  return useMutation({
+    mutationFn: (reviewId: string) => getApi().reviews.toggleHelpful(reviewId),
+    onSuccess: refresh,
+  });
 }
 
 export function useDeleteReview(sellerId: string) {
   const refresh = useRefreshReviews(sellerId);
-  return useMutation({ mutationFn: (reviewId: string) => getApi().reviews.remove(reviewId), onSuccess: refresh });
+  return useMutation({
+    mutationFn: (reviewId: string) => getApi().reviews.remove(reviewId),
+    onSuccess: refresh,
+  });
 }

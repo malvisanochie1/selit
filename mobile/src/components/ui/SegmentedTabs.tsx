@@ -22,7 +22,10 @@ export function SegmentedTabs<T extends string>({
   className?: string;
 }) {
   const [width, setWidth] = useState(0);
-  const index = Math.max(0, options.findIndex((option) => option.value === value));
+  const index = Math.max(
+    0,
+    options.findIndex((option) => option.value === value),
+  );
   const segment = width / options.length;
   const left = useSharedValue(0);
 
@@ -56,7 +59,10 @@ export function SegmentedTabs<T extends string>({
         >
           <Text
             numberOfLines={1}
-            className={cn('font-body-semibold text-sm', option.value === value ? 'text-ink-900' : 'text-ink-500')}
+            className={cn(
+              'font-body-semibold text-sm',
+              option.value === value ? 'text-ink-900' : 'text-ink-500',
+            )}
           >
             {option.label}
           </Text>

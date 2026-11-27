@@ -62,7 +62,12 @@ export function SchoolPicker({
       </PressableScale>
       {error ? <Text className="font-body-medium text-sm text-danger-600">{error}</Text> : null}
 
-      <Sheet open={open} onClose={() => setOpen(false)} title="Choose a school" description="Universities, polytechnics and colleges across Nigeria.">
+      <Sheet
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Choose a school"
+        description="Universities, polytechnics and colleges across Nigeria."
+      >
         <TextField
           autoFocus
           value={query}
@@ -74,7 +79,10 @@ export function SchoolPicker({
         />
         <View className="mt-3">
           {allowAll ? (
-            <Pressable onPress={() => choose('')} className="flex-row items-center gap-3 border-b border-line py-3.5">
+            <Pressable
+              onPress={() => choose('')}
+              className="flex-row items-center gap-3 border-b border-line py-3.5"
+            >
               <Text className="flex-1 font-body-semibold text-ink-900">All schools</Text>
               {!value ? <Check size={18} color={COLORS.brand[600]} /> : null}
             </Pressable>
@@ -87,7 +95,9 @@ export function SchoolPicker({
               className="flex-row items-center gap-3 border-b border-line py-3.5"
             >
               <View className="flex-1">
-                <Text className="font-body-semibold text-ink-900">{school.shortName || school.name}</Text>
+                <Text className="font-body-semibold text-ink-900">
+                  {school.shortName || school.name}
+                </Text>
                 <Text numberOfLines={1} className="text-sm text-ink-500">
                   {school.shortName ? school.name : `${school.city}, ${school.state}`}
                 </Text>

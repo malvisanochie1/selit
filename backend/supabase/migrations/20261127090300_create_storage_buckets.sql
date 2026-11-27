@@ -39,13 +39,9 @@ create policy "Members delete their own files" on storage.objects
   for delete to authenticated
   using (private.owns_storage_path(name) or private.is_admin());
 
-create policy "Owners and admins read private files" on storage.objects
+-- Public photos are served straight from their public URLs, which need no
+-- policy. Listing a bucket's files is limited to the owner and admins, so
+-- nobody can crawl every member's folder.
+create policy "Owners and admins read files" on storage.objects
   for select to authenticated
-  using (
-    bucket_id in ('verifications', 'listing-checks')
-    and (private.owns_storage_path(name) or private.is_admin())
-  );
-
-create policy "Anyone can list public photos" on storage.objects
-  for select
-  using (bucket_id in ('listing-photos', 'apartment-photos', 'avatars'));
+  using (private.owns_storage_path(name) or private.is_admin());

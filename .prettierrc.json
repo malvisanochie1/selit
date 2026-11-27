@@ -2,5 +2,15 @@
   "singleQuote": true,
   "semi": true,
   "trailingComma": "all",
-  "printWidth": 100
+  "printWidth": 100,
+  "overrides": [
+    {
+      "files": "web/**/*.{ts,tsx,css}",
+      "options": {
+        "plugins": ["prettier-plugin-tailwindcss"],
+        "tailwindStylesheet": "./web/src/app/globals.css",
+        "tailwindFunctions": ["cn"]
+      }
+    }
+  ]
 }

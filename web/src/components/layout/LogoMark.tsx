@@ -1,0 +1,41 @@
+import { useId } from 'react';
+
+import { cn } from '@/lib/cn';
+
+export function LogoMark({ className }: { className?: string }) {
+  const gradientId = useId();
+  return (
+    <svg viewBox="0 0 40 40" aria-hidden="true" className={cn('size-9', className)}>
+      <defs>
+        <linearGradient
+          id={gradientId}
+          x1="6"
+          y1="12"
+          x2="34"
+          y2="36"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#8ee05b" />
+          <stop offset="0.45" stopColor="#3fb962" />
+          <stop offset="1" stopColor="#126f32" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M14 14v-3a6 6 0 0 1 12 0v3"
+        fill="none"
+        stroke="#0d1b34"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+      />
+      <rect x="6" y="12.5" width="28" height="23.5" rx="7.5" fill={`url(#${gradientId})`} />
+      <path
+        d="M24.6 19.6c-1-1.4-2.6-2.2-4.5-2.2-2.6 0-4.3 1.4-4.3 3.3 0 4.6 9.1 2.6 9.1 7.4 0 2-1.9 3.5-4.8 3.5-2.1 0-3.9-.8-5-2.4"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+      />
+      <circle cx="31.5" cy="10.5" r="3" fill="#f5b21b" />
+    </svg>
+  );
+}

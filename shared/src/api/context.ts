@@ -53,13 +53,11 @@ export function createContext(client: SupabaseClient): ApiContext {
             ? 'png'
             : 'jpg';
       const path = `${userId}/${name ?? fileId()}.${extension}`;
-      const { error } = await client.storage
-        .from(bucket)
-        .upload(path, photo.body, {
-          contentType: photo.contentType,
-          cacheControl: '31536000',
-          upsert: false,
-        });
+      const { error } = await client.storage.from(bucket).upload(path, photo.body, {
+        contentType: photo.contentType,
+        cacheControl: '31536000',
+        upsert: false,
+      });
       if (error) throw toApiError(error);
       return path;
     },
